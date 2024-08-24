@@ -21,6 +21,6 @@ fun ZodiacCard(modifier: Modifier = Modifier) {
         colors = CardDefaults.cardColors(containerColor = Purple) // Set background color here
     ) {
 
-        Text("Cancer", color = Color.White, fontSize = 16.ssp, fontWeight = FontWeight.Bold, modifier = modifier.padding(horizontal = 8.sdp, vertical = 4.sdp))
+        Text("Cancer", color = Color.White, fontSize = 12.ssp, fontWeight = FontWeight.Bold, modifier = modifier.padding(horizontal = 8.sdp, vertical = 4.sdp))
     }
 }

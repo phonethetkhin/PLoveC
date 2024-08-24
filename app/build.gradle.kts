@@ -109,7 +109,8 @@ dependencies {
     ksp(libs.hilt.compiler.ksp)
 
     // COil
-    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
 
     // Lottie
     implementation(libs.lottie)
