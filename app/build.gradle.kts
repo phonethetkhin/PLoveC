@@ -107,6 +107,8 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler.ksp)
+    // Hilt for Jetpack Compose
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // COil
     implementation(libs.coil.compose)
