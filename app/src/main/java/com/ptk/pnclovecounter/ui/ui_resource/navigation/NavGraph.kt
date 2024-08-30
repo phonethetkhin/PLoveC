@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ptk.pnclovecounter.ui.screen.HomeScreen
+import com.ptk.pnclovecounter.ui.screen.SplashScreen
 
 
 @Composable
@@ -18,8 +19,11 @@ fun NavGraph(
     NavHost(
         modifier = Modifier.padding(bottom = scaffoldPaddingValue.dp),
         navController = navController,
-        startDestination = Routes.HomeScreen.route
+        startDestination = Routes.SplashScreen.route
     ) {
+        composable(route = Routes.SplashScreen.route) {
+            SplashScreen(navController)
+        }
 
         composable(route = Routes.HomeScreen.route) {
             HomeScreen(navController)

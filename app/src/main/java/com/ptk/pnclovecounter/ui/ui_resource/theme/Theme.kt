@@ -18,13 +18,14 @@ import androidx.core.view.WindowCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    onSurface = Purple80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple90,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
+    primary = Purple40,
+    secondary = Pink,
+    tertiary = Purple,
     onSurface = Purple40
 
     /* Other default colors to override
@@ -42,7 +43,7 @@ private val LightColorScheme = lightColorScheme(
 fun MemoryCalculatorTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
