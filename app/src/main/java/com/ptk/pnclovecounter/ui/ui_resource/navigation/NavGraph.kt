@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ptk.pnclovecounter.ui.screen.HomeScreen
 import com.ptk.pnclovecounter.ui.screen.SplashScreen
+import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingScreen
 
 
 @Composable
@@ -19,10 +20,14 @@ fun NavGraph(
     NavHost(
         modifier = Modifier.padding(bottom = scaffoldPaddingValue.dp),
         navController = navController,
-        startDestination = Routes.SplashScreen.route
+        startDestination = Routes.OnboardingScreen.route
     ) {
         composable(route = Routes.SplashScreen.route) {
             SplashScreen(navController)
+        }
+
+        composable(route = Routes.OnboardingScreen.route) {
+            OnboardingScreen(navController)
         }
 
         composable(route = Routes.HomeScreen.route) {
