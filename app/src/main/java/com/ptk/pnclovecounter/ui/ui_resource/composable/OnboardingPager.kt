@@ -29,6 +29,7 @@ import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingDOBScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingNicknameScreen
 import com.ptk.pnclovecounter.ui.ui_resource.navigation.Routes
 import com.ptk.pnclovecounter.ui.ui_resource.theme.Pink
+import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.launch
 
 @Composable
@@ -54,7 +55,7 @@ fun OnboardingPager(navController: NavController) {
             currentPage = pagerState.currentPage,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(16.dp)
+                .padding(start = 16.sdp, end = 16.sdp, top = 16.sdp, bottom = 18.sdp)
         )
 
         // Back Button

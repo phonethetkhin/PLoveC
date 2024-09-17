@@ -1,6 +1,7 @@
 package com.ptk.pnclovecounter.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,5 +26,19 @@ class OnBoardingViewModel @Inject constructor(
             _uiStates.update { it.copy(secondNickName = nickName) }
 
     }
+
+    fun toggleIsShowNNQuestion(isShowNNQuestion: Boolean) {
+        _uiStates.update { it.copy(isShowNNQuestion = isShowNNQuestion) }
+    }
+
+    fun toggleIsShowResult(isShowResult: Boolean) {
+        Log.e("testASDFPTK123", "Result : $isShowResult")
+        _uiStates.update { it.copy(isShowResult = isShowResult) }
+    }
+
+    fun setResult(result: String) {
+        _uiStates.update { it.copy(result = result) }
+    }
+
 
 }

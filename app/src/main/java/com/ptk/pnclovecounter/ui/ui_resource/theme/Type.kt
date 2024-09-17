@@ -37,3 +37,7 @@ val Typography = Typography(
 val KavoonFontFamily = FontFamily(
     Font(R.font.kavoon_regular, FontWeight.Normal),
 )
+
+val LemonFontFamily = FontFamily(
+    Font(R.font.lemon_regular, FontWeight.Normal),
+)

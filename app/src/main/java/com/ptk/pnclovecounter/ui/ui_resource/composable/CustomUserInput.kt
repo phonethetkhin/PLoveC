@@ -2,18 +2,16 @@
 
 package com.ptk.pnclovecounter.ui.ui_resource.composable
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import com.ptk.pnclovecounter.util.Constants
@@ -28,6 +26,8 @@ fun RowScope.CustomUserInput(
     onValChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
+
     TextField(
         value = value,
         onValueChange = { onValChange.invoke(it) },
@@ -36,14 +36,7 @@ fun RowScope.CustomUserInput(
         shape = RoundedCornerShape(16.sdp),
         maxLines = 1,
         singleLine = true,
-        trailingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Clear,
-                contentDescription = "Clear Icon",
-                tint = Color.Black,
-                modifier = modifier.clickable { onValChange.invoke("") }
-            )
-        },
+
         textStyle = TextStyle(fontFamily = Constants.lemon, fontSize = 16.ssp),
         colors = TextFieldDefaults.colors(
             focusedTextColor = Color.Black,

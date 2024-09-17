@@ -7,4 +7,9 @@ data class OnBoardingUIStates(
     val firstDOB: String = "",
     val secondDOB: String = "",
     val anniversaryDate: String = "",
+
+    val isShowNNQuestion: Boolean = false,
+    val isShowResult : Boolean = false,
+
+    val result : String = "",
 )
