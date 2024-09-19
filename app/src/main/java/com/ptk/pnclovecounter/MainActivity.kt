@@ -11,7 +11,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -40,27 +39,27 @@ fun MainComposable(
 ) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
     ModalNavigationDrawer(
-        gesturesEnabled = true,
+        gesturesEnabled = currentRoute != null && currentRoute != Routes.OnboardingScreen.route,
         drawerContent = {
             DrawerContent()
         },
         drawerState = drawerState,
         content = {
-            MainContent(drawerState, navController)
+            MainContent(drawerState, navController, currentRoute)
         }
     )
-
 }
 
 @Composable
 fun MainContent(
     drawerState: DrawerState,
     navController: NavHostController,
+    currentRoute: String?,
     modifier: Modifier = Modifier
 ) {
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

@@ -53,7 +53,7 @@ fun OnboardingDOBScreenContent(
     changeDob: (Boolean, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(color = Purple40) {
+    Surface {
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -24,7 +24,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomAnimatedVisibility
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomDatePicker
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
-import com.ptk.pnclovecounter.ui.ui_resource.theme.Purple40
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
 import ir.kaaveh.sdpcompose.sdp
@@ -51,7 +50,7 @@ fun OnboardingAnniversaryScreenContent(
     changeAnniDate: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(color = Purple40) {
+    Surface {
         Column(
             modifier = Modifier
                 .fillMaxSize()

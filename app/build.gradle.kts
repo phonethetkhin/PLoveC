@@ -86,8 +86,6 @@ dependencies {
     // Viewmodel
     implementation(libs.lifecycle.viewmodel.ktx)
 
-    // Pager
-    implementation(libs.accompanist.pager)
 
 
 
@@ -124,10 +122,6 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-
-    //pager lib
-    implementation(libs.accompanist.pager)
-
 
 
 }

@@ -1,6 +1,5 @@
 [versions]
-accompanistPager = "0.22.0-rc"
-agp = "8.5.1"
+agp = "8.5.2"
 coilCompose = "2.6.0"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
@@ -10,23 +9,22 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 ktorClientContentNegotiation = "2.2.3"
 ktorSerializationKotlinxJson = "2.2.3"
-lifecycleRuntimeKtx = "2.8.3"
-activityCompose = "1.9.0"
-composeBom = "2024.06.00"
+lifecycleRuntimeKtx = "2.8.6"
+activityCompose = "1.9.2"
+composeBom = "2024.09.02"
 
 ktor = "2.2.3"
 hilt = "2.51.1"
 logbackClassic = "1.4.6"
 lottie = "6.1.0"
-lifecycle = "2.8.3"
+lifecycle = "2.8.6"
 kspVer = "2.0.0-1.0.21"
-navVersion = "2.7.0"
+navVersion = "2.8.1"
 roomRuntime = "2.6.1"
 sdpCompose = "1.1.0"
-navigationRuntimeKtx = "2.7.7"
+navigationRuntimeKtx = "2.8.1"
 
 [libraries]
-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }

@@ -26,6 +26,21 @@ class OnBoardingViewModel @Inject constructor(
         }
     }
 
+    fun toggleIsShowWelcomeButton(isShowWelcomeButton: Boolean) {
+        _uiStates.update { it.copy(isShowWelcomeButton = isShowWelcomeButton) }
+    }
+
+    fun toggleIsShowFavFood(isShowFavFood: Boolean) {
+        _uiStates.update { it.copy(isShowFavFood = isShowFavFood) }
+    }
+
+    fun toggleOurPassword(ourPassword: String) {
+        _uiStates.update { it.copy(ourPassword = ourPassword) }
+    }
+    fun toggleIsShowOurPassword(isShowOurPassword: Boolean) {
+        _uiStates.update { it.copy(isShowPassword = isShowOurPassword) }
+    }
+
     fun toggleIsShowNNQuestion(isShowNNQuestion: Boolean) {
         _uiStates.update { it.copy(isShowNNQuestion = isShowNNQuestion) }
     }
@@ -34,9 +49,11 @@ class OnBoardingViewModel @Inject constructor(
         _uiStates.update { it.copy(isShowDobs = isShowDobs) }
     }
 
+
     fun toggleIsShowAnniversaryDate(isShowAnniDate: Boolean) {
         _uiStates.update { it.copy(isShowAnniDate = isShowAnniDate) }
     }
+
 
     fun toggleIsShowResult(isShowResult: Boolean) {
         Log.e("testASDFPTK123", "Result : $isShowResult")
