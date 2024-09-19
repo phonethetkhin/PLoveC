@@ -20,15 +20,22 @@ class OnBoardingViewModel @Inject constructor(
 
 
     fun toggleNickName(isFirstNickName: Boolean, nickName: String) {
-        if (isFirstNickName)
-            _uiStates.update { it.copy(firstNickName = nickName) }
-        else
-            _uiStates.update { it.copy(secondNickName = nickName) }
-
+        _uiStates.update {
+            if (isFirstNickName) it.copy(firstNickName = nickName)
+            else it.copy(secondNickName = nickName)
+        }
     }
 
     fun toggleIsShowNNQuestion(isShowNNQuestion: Boolean) {
         _uiStates.update { it.copy(isShowNNQuestion = isShowNNQuestion) }
+    }
+
+    fun toggleIsShowDobs(isShowDobs: Boolean) {
+        _uiStates.update { it.copy(isShowDobs = isShowDobs) }
+    }
+
+    fun toggleIsShowAnniversaryDate(isShowAnniDate: Boolean) {
+        _uiStates.update { it.copy(isShowAnniDate = isShowAnniDate) }
     }
 
     fun toggleIsShowResult(isShowResult: Boolean) {
@@ -38,6 +45,17 @@ class OnBoardingViewModel @Inject constructor(
 
     fun setResult(result: String) {
         _uiStates.update { it.copy(result = result) }
+    }
+
+    fun changeAnniDate(anniDate: String) {
+        _uiStates.update { it.copy(anniversaryDate = anniDate) }
+    }
+
+    fun changeDob(isFirstDOB: Boolean, dob: String) {
+        _uiStates.update {
+            if (isFirstDOB) it.copy(firstDOB = dob)
+            else it.copy(secondDOB = dob)
+        }
     }
 
 
