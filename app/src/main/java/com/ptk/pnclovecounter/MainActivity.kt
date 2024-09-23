@@ -42,7 +42,7 @@ fun MainComposable(
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
     ModalNavigationDrawer(
-        gesturesEnabled = currentRoute != null && currentRoute != Routes.OnboardingScreen.route,
+        gesturesEnabled = currentRoute != null && currentRoute != Routes.OnboardingEnquiryScreen.route,
         drawerContent = {
             DrawerContent()
         },
@@ -64,7 +64,7 @@ fun MainContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            if (currentRoute != Routes.SplashScreen.route && currentRoute != Routes.OnboardingScreen.route) {
+            if (currentRoute != Routes.SplashScreen.route && currentRoute != Routes.OnboardingEnquiryScreen.route) {
                 CustomTopAppBar(drawerState, modifier)
             }
         }

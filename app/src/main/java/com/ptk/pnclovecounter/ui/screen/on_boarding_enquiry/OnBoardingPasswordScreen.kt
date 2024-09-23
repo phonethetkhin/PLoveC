@@ -1,4 +1,4 @@
-package com.ptk.pnclovecounter.ui.screen.on_boarding
+package com.ptk.pnclovecounter.ui.screen.on_boarding_enquiry
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,30 +21,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomAnimatedVisibility
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomButton
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomUserInput
+import com.ptk.pnclovecounter.ui.ui_resource.navigation.Routes
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
-import kotlinx.coroutines.delay
 
 @Composable
 fun OnBoardingPasswordScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
     onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val onBoardingUIStates by onBoardingViewModel.uiStates.collectAsState()
 
-    OnBoardingPasswordScreenContent(onBoardingViewModel::toggleOurPassword, onBoardingUIStates)
+    OnBoardingPasswordScreenContent(
+        onBoardingViewModel::toggleOurPassword,
+        navController,
+        onBoardingUIStates
+    )
 
-    LaunchedEffect(Unit) {
-        delay(2000L)
-        onBoardingViewModel.toggleIsShowOurPassword(true)
-    }
     DisposableEffect(Unit) {
+        onBoardingViewModel.toggleIsShowOurPassword(true)
         onDispose {
             onBoardingViewModel.toggleIsShowOurPassword(false)
         }
@@ -55,6 +57,7 @@ fun OnBoardingPasswordScreen(
 @Composable
 fun OnBoardingPasswordScreenContent(
     togglePassword: (String) -> Unit,
+    navController: NavController,
     onBoardingUIStates: OnBoardingUIStates,
     modifier: Modifier = Modifier
 ) {
@@ -104,7 +107,10 @@ fun OnBoardingPasswordScreenContent(
                     .padding(8.sdp)
             ) {
                 CustomButton("Done") {
-
+                  /*  navController.navigate(Routes.OnboardingScreen.route) {
+                        // Clear the back stack to prevent the user from navigating back to the splash screen
+                        popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
+                    }*/
                 }
             }
         }

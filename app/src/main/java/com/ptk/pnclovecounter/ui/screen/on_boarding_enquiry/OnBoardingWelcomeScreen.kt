@@ -1,5 +1,6 @@
-package com.ptk.pnclovecounter.ui.screen.on_boarding
+package com.ptk.pnclovecounter.ui.screen.on_boarding_enquiry
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,6 +34,7 @@ fun OnBoardingWelcomeScreen(
     onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val onBoardingUIStates by onBoardingViewModel.uiStates.collectAsState()
+    Log.e("testASDFPTK123","welcome screen")
 
     OnBoardingWelcomeScreenContent(onBoardingUIStates)
 
@@ -88,7 +90,7 @@ fun OnBoardingWelcomeScreenContent(
             ) {
                 CustomButton("Yes") {
                     scope.launch {
-                        onBoardingUIStates.pagerState.animateScrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
+                        onBoardingUIStates.pagerState.scrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
                     }
                 }
             }

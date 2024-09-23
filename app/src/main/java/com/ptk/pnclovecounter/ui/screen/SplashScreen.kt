@@ -37,7 +37,7 @@ fun SplashScreen(
         // Wait for 3 seconds
         delay(3000)
         // Navigate to the onboarding screen
-        navHostController.navigate(Routes.OnboardingScreen.route) {
+        navHostController.navigate(Routes.OnboardingEnquiryScreen.route) {
             // Clear the back stack to prevent the user from navigating back to the splash screen
             popUpTo(Routes.SplashScreen.route) { inclusive = true }
         }

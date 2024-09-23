@@ -1,4 +1,4 @@
-package com.ptk.pnclovecounter.ui.screen.on_boarding
+package com.ptk.pnclovecounter.ui.screen.on_boarding_enquiry
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
@@ -76,7 +76,7 @@ fun OnBoardingFavFoodScreenContent(
             CustomAnimatedVisibility(isVisible = onBoardingUIStates.isShowFavFood) {
                 CustomButton("Chicken") {
                     scope.launch {
-                        onBoardingUIStates.pagerState.animateScrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
+                        onBoardingUIStates.pagerState.scrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
                     }
                 }
             }
@@ -93,7 +93,7 @@ fun OnBoardingFavFoodScreenContent(
             ) {
                 CustomButton("Pork") {
                     scope.launch {
-                        onBoardingUIStates.pagerState.animateScrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
+                        onBoardingUIStates.pagerState.scrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
                     }
                 }
             }
@@ -111,7 +111,7 @@ fun OnBoardingFavFoodScreenContent(
             ) {
                 CustomButton("Fish") {
                     scope.launch {
-                        onBoardingUIStates.pagerState.animateScrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
+                        onBoardingUIStates.pagerState.scrollToPage(onBoardingUIStates.pagerState.currentPage + 1)
                     }
                 }
             }

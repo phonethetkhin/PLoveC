@@ -21,9 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.ptk.pnclovecounter.ui.screen.on_boarding.OnBoardingFavFoodScreen
-import com.ptk.pnclovecounter.ui.screen.on_boarding.OnBoardingPasswordScreen
-import com.ptk.pnclovecounter.ui.screen.on_boarding.OnBoardingWelcomeScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingAnniversaryScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingDOBScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingNicknameScreen
@@ -32,29 +29,29 @@ import com.ptk.pnclovecounter.ui.ui_resource.theme.Pink
 import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.launch
 
+
 @Composable
 fun OnboardingPager(pagerState: PagerState, navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         HorizontalPager(
             state = pagerState,
-            userScrollEnabled = false,
             modifier = Modifier
                 .fillMaxSize()
         ) { page ->
             when (page) {
-                0 -> OnBoardingWelcomeScreen()
-                1 -> OnBoardingFavFoodScreen()
-                2 -> OnBoardingPasswordScreen()
-                3 -> OnboardingNicknameScreen()
-                4 -> OnboardingDOBScreen()
-                5 -> OnboardingAnniversaryScreen()
+                0 -> OnboardingNicknameScreen()
+                1 -> OnboardingDOBScreen()
+                2 -> OnboardingAnniversaryScreen()
             }
         }
 
         PagerIndicator(
-            pageCount = 6,
+            pageCount = 3,
             currentPage = pagerState.currentPage,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -62,7 +59,7 @@ fun OnboardingPager(pagerState: PagerState, navController: NavController) {
         )
 
         // Back Button
-        if (pagerState.currentPage > 2) {
+        if (pagerState.currentPage > 0) {
             Button(
                 colors = ButtonDefaults.buttonColors(containerColor = Pink),
                 onClick = {
@@ -92,7 +89,7 @@ fun OnboardingPager(pagerState: PagerState, navController: NavController) {
                         } else {
                             // Navigate to another screen, e.g., the main screen, after the onboarding is complete
                             navController.navigate(Routes.HomeScreen.route) {
-                                popUpTo(Routes.OnboardingScreen.route) { inclusive = true }
+                                popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
                             }
                         }
                     }
