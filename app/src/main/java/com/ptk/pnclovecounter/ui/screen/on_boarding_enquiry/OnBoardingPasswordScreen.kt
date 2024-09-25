@@ -25,7 +25,6 @@ import androidx.navigation.NavController
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomAnimatedVisibility
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomButton
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomUserInput
-import com.ptk.pnclovecounter.ui.ui_resource.navigation.Routes
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
@@ -42,6 +41,7 @@ fun OnBoardingPasswordScreen(
 
     OnBoardingPasswordScreenContent(
         onBoardingViewModel::toggleOurPassword,
+        onBoardingViewModel::navigateToOnBoarding,
         navController,
         onBoardingUIStates
     )
@@ -57,6 +57,7 @@ fun OnBoardingPasswordScreen(
 @Composable
 fun OnBoardingPasswordScreenContent(
     togglePassword: (String) -> Unit,
+    navigateToOnboarding: (NavController) -> Unit,
     navController: NavController,
     onBoardingUIStates: OnBoardingUIStates,
     modifier: Modifier = Modifier
@@ -81,6 +82,8 @@ fun OnBoardingPasswordScreenContent(
                     onValChange = {
                         togglePassword.invoke(it)
                     },
+                    isError = onBoardingUIStates.isPasswordError,
+                    errorMessage = onBoardingUIStates.pswErrorMessage,
                     modifier = modifier
                         .fillMaxWidth()
                         .padding(8.sdp)
@@ -107,10 +110,7 @@ fun OnBoardingPasswordScreenContent(
                     .padding(8.sdp)
             ) {
                 CustomButton("Done") {
-                  /*  navController.navigate(Routes.OnboardingScreen.route) {
-                        // Clear the back stack to prevent the user from navigating back to the splash screen
-                        popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
-                    }*/
+                    navigateToOnboarding.invoke(navController)
                 }
             }
         }

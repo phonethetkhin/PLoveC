@@ -64,7 +64,7 @@ fun MainContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            if (currentRoute != Routes.SplashScreen.route && currentRoute != Routes.OnboardingEnquiryScreen.route) {
+            if (currentRoute != Routes.SplashScreen.route && currentRoute != Routes.OnboardingEnquiryScreen.route && currentRoute != Routes.OnboardingScreen.route) {
                 CustomTopAppBar(drawerState, modifier)
             }
         }

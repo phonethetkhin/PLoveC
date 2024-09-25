@@ -10,4 +10,7 @@ object Constants {
     val kavoon = FontFamily(Font(R.font.lemon_regular, FontWeight.Normal))
     val lemon = FontFamily(Font(R.font.lemon_regular, FontWeight.Normal))
 
+
+    val ourPassword = "thomasily"
+
 }

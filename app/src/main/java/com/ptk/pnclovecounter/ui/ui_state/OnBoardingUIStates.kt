@@ -4,7 +4,7 @@ import androidx.compose.foundation.pager.PagerState
 
 
 data class OnBoardingUIStates(
-    val pagerState: PagerState = PagerState { 6 },
+    val pagerState: PagerState = PagerState { 3 },
 
     val firstNickName: String = "Athet",
     val secondNickName: String = "Athel",
@@ -24,4 +24,7 @@ data class OnBoardingUIStates(
     val isShowResult: Boolean = false,
     val isShowDobs: Boolean = false,
     val isShowAnniDate: Boolean = false,
+
+    val isPasswordError: Boolean = false,
+    val pswErrorMessage: String = "",
 )

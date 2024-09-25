@@ -29,9 +29,10 @@ fun NavGraph(
         composable(route = Routes.OnboardingEnquiryScreen.route) {
             OnboardingEnquiryScreen(navController)
         }
-//        composable(route = Routes.OnboardingScreen.route) {
-//            OnboardingScreen(navController)
-//        }
+
+        composable(route = Routes.OnboardingScreen.route) {
+            OnboardingScreen(navController)
+        }
 
         composable(route = Routes.HomeScreen.route) {
             HomeScreen(navController)

@@ -64,7 +64,7 @@ fun OnboardingPager(pagerState: PagerState, navController: NavController) {
                 colors = ButtonDefaults.buttonColors(containerColor = Pink),
                 onClick = {
                     coroutineScope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                        pagerState.scrollToPage(pagerState.currentPage - 1)
                     }
                 },
                 modifier = Modifier
@@ -77,34 +77,31 @@ fun OnboardingPager(pagerState: PagerState, navController: NavController) {
             }
         }
 
-        if (pagerState.currentPage > 2) {
-
-            // Next Button
-            Button(
-                colors = ButtonDefaults.buttonColors(containerColor = Pink),
-                onClick = {
-                    coroutineScope.launch {
-                        if (pagerState.currentPage < pagerState.pageCount - 1) {
-                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                        } else {
-                            // Navigate to another screen, e.g., the main screen, after the onboarding is complete
-                            navController.navigate(Routes.HomeScreen.route) {
-                                popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
-                            }
+        // Next Button
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = Pink),
+            onClick = {
+                coroutineScope.launch {
+                    if (pagerState.currentPage < pagerState.pageCount - 1) {
+                        pagerState.scrollToPage(pagerState.currentPage + 1)
+                    } else {
+                        // Navigate to another screen, e.g., the main screen, after the onboarding is complete
+                        navController.navigate(Routes.HomeScreen.route) {
+                            popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
                         }
                     }
-                },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp)
-            ) {
-                Text(text = if (pagerState.currentPage < pagerState.pageCount - 1) "Next" else "Finish")
-                Spacer(modifier = Modifier.width(8.dp))
-                Icon(
-                    imageVector = if (pagerState.currentPage < pagerState.pageCount - 1) Icons.AutoMirrored.Filled.ArrowForward else Icons.Filled.CheckCircle,
-                    contentDescription = "Next/Finish"
-                )
-            }
+                }
+            },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            Text(text = if (pagerState.currentPage < pagerState.pageCount - 1) "Next" else "Finish")
+            Spacer(modifier = Modifier.width(8.dp))
+            Icon(
+                imageVector = if (pagerState.currentPage < pagerState.pageCount - 1) Icons.AutoMirrored.Filled.ArrowForward else Icons.Filled.CheckCircle,
+                contentDescription = "Next/Finish"
+            )
         }
     }
 
