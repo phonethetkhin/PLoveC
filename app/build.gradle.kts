@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ptk.pnclovecounter"
-        minSdk = 26
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -122,6 +122,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    //splash
+    implementation(libs.androidx.core.splashscreen)
 
 
 }
