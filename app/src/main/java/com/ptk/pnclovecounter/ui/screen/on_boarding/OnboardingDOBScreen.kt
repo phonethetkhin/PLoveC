@@ -26,14 +26,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomAnimatedVisibility
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomDatePicker
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
-import com.ptk.pnclovecounter.ui.ui_resource.theme.Purple40
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
 @Composable
-fun OnboardingDOBScreen(onBoardingViewModel: OnBoardingViewModel = hiltViewModel()) {
+fun OnboardingDOBScreen(
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
+) {
 
     val onBoardingUIStates by onBoardingViewModel.uiStates.collectAsState()
 
@@ -100,11 +101,20 @@ fun OnboardingDOBScreenContent(
 
             CustomAnimatedVisibility(isVisible = onBoardingUIStates.isShowDobs) {
                 Row(modifier = modifier.fillMaxWidth()) {
-                    CustomDatePicker(onBoardingUIStates.firstDOB, modifier = modifier.weight(1F)) {
+                    CustomDatePicker(
+                        onBoardingUIStates.firstDOB,
+                        modifier = modifier.weight(1F),
+                        isError = onBoardingUIStates.isFDOBWrong,
+                        errorMessage = "Incorrect Date of Birth\n(It's 29/06/1997)",
+                    ) {
                         changeDob.invoke(true, it)
                     }
                     Spacer(modifier = modifier.width(8.sdp))
-                    CustomDatePicker(onBoardingUIStates.secondDOB, modifier = modifier.weight(1F)) {
+                    CustomDatePicker(
+                        onBoardingUIStates.secondDOB, modifier = modifier.weight(1F),
+                        isError = onBoardingUIStates.isSDOBWrong,
+                        errorMessage = "Incorrect Date of Birth\n(It's 15/04/1996)",
+                    ) {
                         changeDob.invoke(false, it)
 
                     }

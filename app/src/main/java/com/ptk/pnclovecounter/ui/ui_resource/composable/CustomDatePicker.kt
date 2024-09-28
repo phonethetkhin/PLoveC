@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -25,6 +26,8 @@ import java.util.Calendar
 @Composable
 fun RowScope.CustomDatePicker(
     selectedDob: String,
+    isError: Boolean = false,
+    errorMessage: String = "",
     modifier: Modifier = Modifier,
     changeDob: (String) -> Unit,
 ) {
@@ -54,6 +57,8 @@ fun RowScope.CustomDatePicker(
         shape = RoundedCornerShape(16.sdp),
         maxLines = 1,
         singleLine = true,
+        isError = isError,
+        supportingText = { if (isError) Text(errorMessage) else Text("") },
         readOnly = true,
         textStyle = TextStyle(fontFamily = Constants.lemon, fontSize = 12.ssp),
         colors = TextFieldDefaults.colors(
@@ -68,12 +73,12 @@ fun RowScope.CustomDatePicker(
             focusedContainerColor = Color.White
         ),
         trailingIcon = {
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = "DateIcon",
-                modifier = modifier.clickable {
-                    datePickerDialog.show()
-                })
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = "DateIcon",
+                    modifier = modifier.clickable {
+                        datePickerDialog.show()
+                    })
         }
     )
 }

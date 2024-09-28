@@ -20,20 +20,24 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingAnniversaryScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingDOBScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingNicknameScreen
-import com.ptk.pnclovecounter.ui.ui_resource.navigation.Routes
 import com.ptk.pnclovecounter.ui.ui_resource.theme.Pink
+import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
 import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.launch
 
 
 @Composable
-fun OnboardingPager(pagerState: PagerState, navController: NavController) {
+fun OnboardingPager(
+    pagerState: PagerState,
+    navController: NavController,
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
+) {
     val coroutineScope = rememberCoroutineScope()
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -81,16 +85,7 @@ fun OnboardingPager(pagerState: PagerState, navController: NavController) {
         Button(
             colors = ButtonDefaults.buttonColors(containerColor = Pink),
             onClick = {
-                coroutineScope.launch {
-                    if (pagerState.currentPage < pagerState.pageCount - 1) {
-                        pagerState.scrollToPage(pagerState.currentPage + 1)
-                    } else {
-                        // Navigate to another screen, e.g., the main screen, after the onboarding is complete
-                        navController.navigate(Routes.HomeScreen.route) {
-                            popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
-                        }
-                    }
-                }
+                onBoardingViewModel.goNextPage(navController)
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)

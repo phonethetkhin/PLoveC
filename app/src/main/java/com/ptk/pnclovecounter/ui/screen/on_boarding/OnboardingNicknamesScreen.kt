@@ -1,6 +1,6 @@
 package com.ptk.pnclovecounter.ui.screen.on_boarding
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.EaseOutCirc
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +30,6 @@ import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomAnimatedVisibility
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomButton
 import com.ptk.pnclovecounter.ui.ui_resource.composable.CustomUserInput
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
-import com.ptk.pnclovecounter.ui.ui_resource.theme.Purple40
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
 import ir.kaaveh.sdpcompose.sdp
@@ -39,21 +38,22 @@ import ir.kaaveh.sdpcompose.ssp
 @Composable
 fun OnboardingNicknameScreen(
     modifier: Modifier = Modifier,
-    onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
+
     val onBoardingUIStates by onBoardingViewModel.uiStates.collectAsState()
     OnboardingNicknameScreenContent(
         onBoardingViewModel::toggleNickName,
         onBoardingViewModel::toggleIsShowNNQuestion,
         onBoardingViewModel::toggleIsShowResult,
         onBoardingViewModel::setResult,
-        onBoardingUIStates
+        onBoardingUIStates,
     )
 
     DisposableEffect(Unit) {
         onBoardingViewModel.toggleIsShowNNQuestion(true)
-        onBoardingViewModel.toggleNickName(true,"Athet")
-        onBoardingViewModel.toggleNickName(false,"Athel")
+        onBoardingViewModel.toggleNickName(true, "Athet")
+        onBoardingViewModel.toggleNickName(false, "Athel")
         onDispose {
             onBoardingViewModel.toggleIsShowNNQuestion(false)
             onBoardingViewModel.toggleIsShowResult(false)
@@ -74,8 +74,8 @@ fun OnboardingNicknameScreenContent(
     val animatedSize by animateDpAsState(
         targetValue = if (onBoardingUIStates.isShowNNQuestion || onBoardingUIStates.isShowResult) 32.sdp else 8.sdp, // Adjust the size as needed
         animationSpec = tween(
-            durationMillis = 3000, // Adjust the duration as needed
-            easing = LinearOutSlowInEasing // You can choose different easing functions
+            durationMillis = 2000, // Adjust the duration as needed
+            easing = EaseOutCirc // You can choose different easing functions
         ), label = ""
     )
 
@@ -124,7 +124,6 @@ fun OnboardingNicknameScreenContent(
 
             CustomAnimatedVisibility(isVisible = onBoardingUIStates.isShowResult) {
                 CustomButton(onBoardingUIStates.result) {
-
                 }
             }
 
@@ -141,12 +140,16 @@ fun OnboardingNicknameScreenContent(
                     onValChange = {
                         toggleNickName.invoke(true, it)
                     },
+                    isError = onBoardingUIStates.isFNickNameEmpty,
+                    errorMessage = "Nickname cannot be empty",
                 )
                 Spacer(modifier = modifier.width(16.sdp))
                 CustomUserInput(
                     label = "Nickname",
                     value = onBoardingUIStates.secondNickName,
                     onValChange = { toggleNickName.invoke(false, it) },
+                    isError = onBoardingUIStates.isSNickNameEmpty,
+                    errorMessage = "Nickname cannot be empty",
                 )
             }
 

@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                 -splashScreenView.height.toFloat()
             )
             slideUp.interpolator = AnticipateInterpolator()
-            slideUp.duration = 2000L
+            slideUp.duration = 1000L
 
             // Call SplashScreenView.remove at the end of your custom animation.
             slideUp.doOnEnd { splashScreenView.remove() }

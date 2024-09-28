@@ -30,7 +30,9 @@ import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
 @Composable
-fun OnboardingAnniversaryScreen(onBoardingViewModel: OnBoardingViewModel = hiltViewModel()) {
+fun OnboardingAnniversaryScreen(
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
+) {
 
     val onBoardingUIStates by onBoardingViewModel.uiStates.collectAsState()
 
@@ -73,6 +75,8 @@ fun OnboardingAnniversaryScreenContent(
                 Row(modifier = modifier.fillMaxWidth()) {
                     CustomDatePicker(
                         onBoardingUIStates.anniversaryDate,
+                        isError = onBoardingUIStates.isAnniWrong,
+                        errorMessage = "Incorrect Anniversary Date\n(It's 6/5/2024)",
                         modifier = modifier.weight(1F)
                     ) {
                         changeAnniDate.invoke(it)

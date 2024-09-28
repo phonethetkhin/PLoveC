@@ -3,6 +3,9 @@ package com.ptk.pnclovecounter.ui.ui_resource.composable
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.EaseInOutBack
+import androidx.compose.animation.core.EaseOutBounce
+import androidx.compose.animation.core.EaseOutCirc
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -19,11 +22,11 @@ fun CustomAnimatedVisibility(
         visible = isVisible,
         enter = slideInHorizontally(
             initialOffsetX = { -1000 },
-            animationSpec = tween(durationMillis = 2000)
+            animationSpec = tween(durationMillis = 1000, easing = EaseOutCirc)
         ),
         exit = slideOutHorizontally(
             targetOffsetX = { 1000 },
-            animationSpec = tween(durationMillis = 1000)
+            animationSpec = tween(durationMillis = 500)
         )
     ) {
         content.invoke()

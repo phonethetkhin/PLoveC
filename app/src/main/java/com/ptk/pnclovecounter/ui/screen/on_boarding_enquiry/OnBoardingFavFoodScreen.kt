@@ -1,5 +1,6 @@
 package com.ptk.pnclovecounter.ui.screen.on_boarding_enquiry
 
+import androidx.compose.animation.core.EaseOutCirc
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
@@ -84,11 +85,11 @@ fun OnBoardingFavFoodScreenContent(
                 isVisible = onBoardingUIStates.isShowFavFood,
                 enterTransition = slideInVertically(
                     initialOffsetY = { 1000 },
-                    animationSpec = tween(durationMillis = 2000)
+                    animationSpec = tween(durationMillis = 1000, easing = EaseOutCirc)
                 ),
                 exitTransition = slideOutHorizontally(
                     targetOffsetX = { -1000 },
-                    animationSpec = tween(durationMillis = 2000)
+                    animationSpec = tween(durationMillis = 500)
                 )
             ) {
                 CustomButton("Pork") {
@@ -101,11 +102,11 @@ fun OnBoardingFavFoodScreenContent(
                 isVisible = onBoardingUIStates.isShowFavFood,
                 enterTransition = slideInHorizontally(
                     initialOffsetX = { 1000 },
-                    animationSpec = tween(durationMillis = 2000)
+                    animationSpec = tween(durationMillis = 1000, easing = EaseOutCirc)
                 ),
                 exitTransition = slideOutHorizontally(
                     targetOffsetX = { -1000 },
-                    animationSpec = tween(durationMillis = 1000)
+                    animationSpec = tween(durationMillis = 500)
                 )
 
             ) {

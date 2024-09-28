@@ -1,5 +1,6 @@
 package com.ptk.pnclovecounter.ui.screen.on_boarding_enquiry
 
+import androidx.compose.animation.core.EaseOutCirc
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -95,11 +96,11 @@ fun OnBoardingPasswordScreenContent(
             isVisible = onBoardingUIStates.isShowPassword,
             enterTransition = slideInVertically(
                 initialOffsetY = { 1000 },
-                animationSpec = tween(durationMillis = 2000)
+                animationSpec = tween(durationMillis = 1000, easing = EaseOutCirc)
             ),
             exitTransition = slideOutHorizontally(
                 targetOffsetX = { -1000 },
-                animationSpec = tween(durationMillis = 2000)
+                animationSpec = tween(durationMillis = 500)
             )
         ) {
             Row(

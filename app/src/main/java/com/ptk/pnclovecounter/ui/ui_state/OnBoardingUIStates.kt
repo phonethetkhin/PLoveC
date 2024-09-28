@@ -10,12 +10,12 @@ data class OnBoardingUIStates(
     val secondNickName: String = "Athel",
     val ourPassword: String = "",
 
-    val anniversaryDate: String = "06/05/2024",
+    val anniversaryDate: String = "6/5/2024",
 
     val result: String = "",
 
-    val firstDOB: String = "29/06/1997",
-    val secondDOB: String = "15/04/1996",
+    val firstDOB: String = "29/6/1997",
+    val secondDOB: String = "15/4/1996",
 
     val isShowWelcomeButton: Boolean = false,
     val isShowFavFood: Boolean = false,
@@ -27,4 +27,12 @@ data class OnBoardingUIStates(
 
     val isPasswordError: Boolean = false,
     val pswErrorMessage: String = "",
+
+    val isFNickNameEmpty: Boolean = false,
+    val isSNickNameEmpty: Boolean = false,
+
+    val isFDOBWrong: Boolean = false,
+    val isSDOBWrong: Boolean = false,
+
+    val isAnniWrong: Boolean = false,
 )
