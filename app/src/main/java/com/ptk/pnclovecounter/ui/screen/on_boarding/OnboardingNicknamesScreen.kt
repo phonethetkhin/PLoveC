@@ -87,7 +87,16 @@ fun OnboardingNicknameScreenContent(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Spacer(modifier = modifier.height(32.sdp))
 
+            Text(
+                text = "Welcome CHO !!!",
+                color = Color.White,
+                fontSize = 23.ssp,
+                fontFamily = KavoonFontFamily,
+                lineHeight = 30.ssp,
+                textAlign = TextAlign.Center,
+            )
             Spacer(modifier = modifier.height(32.sdp))
             Text(
                 text = "You like these nicknames?",

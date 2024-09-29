@@ -1,5 +1,6 @@
 package com.ptk.pnclovecounter.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,11 +20,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ptk.pnclovecounter.R
 import com.ptk.pnclovecounter.ui.ui_resource.navigation.Routes
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
 import com.ptk.pnclovecounter.ui.ui_resource.theme.Purple40
+import com.ptk.pnclovecounter.viewmodel.OnBoardingViewModel
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 import kotlinx.coroutines.delay
@@ -31,15 +34,24 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     navHostController: NavHostController,
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
         // Wait for 3 seconds
+        val isFirstLaunch = onBoardingViewModel.isFirstLaunch()
         delay(3000)
         // Navigate to the onboarding screen
-        navHostController.navigate(Routes.OnboardingEnquiryScreen.route) {
-            // Clear the back stack to prevent the user from navigating back to the splash screen
-            popUpTo(Routes.SplashScreen.route) { inclusive = true }
+        if (isFirstLaunch) {
+            navHostController.navigate(Routes.OnboardingEnquiryScreen.route) {
+                // Clear the back stack to prevent the user from navigating back to the splash screen
+                popUpTo(Routes.SplashScreen.route) { inclusive = true }
+            }
+        } else {
+            navHostController.navigate(Routes.HomeScreen.route) {
+                // Clear the back stack to prevent the user from navigating back to the splash screen
+                popUpTo(Routes.SplashScreen.route) { inclusive = true }
+            }
         }
     }
 

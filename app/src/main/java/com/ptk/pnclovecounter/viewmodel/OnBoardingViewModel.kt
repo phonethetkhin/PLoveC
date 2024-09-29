@@ -1,6 +1,7 @@
 package com.ptk.pnclovecounter.viewmodel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,9 +9,14 @@ import androidx.navigation.NavController
 import com.ptk.pnclovecounter.ui.ui_resource.navigation.Routes
 import com.ptk.pnclovecounter.ui.ui_state.OnBoardingUIStates
 import com.ptk.pnclovecounter.util.Constants
+import com.ptk.pnclovecounter.util.PreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -19,11 +25,20 @@ import javax.inject.Inject
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
     private val context: Application,
+    private val preferencesManager: PreferencesManager,
 ) : ViewModel() {
 
     private val _uiStates = MutableStateFlow(OnBoardingUIStates())
     val uiStates = _uiStates.asStateFlow()
 
+
+   suspend fun isFirstLaunch() = preferencesManager.isFirstLaunchFlow.first()
+
+    private fun completeOnboarding() {
+        viewModelScope.launch {
+            preferencesManager.setFirstLaunch(false)
+        }
+    }
 
     fun toggleNickName(isFirstNickName: Boolean, nickName: String) {
         _uiStates.update {
@@ -163,6 +178,7 @@ class OnBoardingViewModel @Inject constructor(
                             .show()
                         _uiStates.update { it.copy(isAnniWrong = _uiStates.value.anniversaryDate != "6/5/2024") }
                     } else {
+                        completeOnboarding()
                         navController.navigate(Routes.HomeScreen.route) {
                             popUpTo(Routes.OnboardingEnquiryScreen.route) { inclusive = true }
                         }

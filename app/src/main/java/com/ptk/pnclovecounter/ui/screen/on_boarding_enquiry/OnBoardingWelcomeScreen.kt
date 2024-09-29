@@ -34,8 +34,6 @@ fun OnBoardingWelcomeScreen(
     onBoardingViewModel: OnBoardingViewModel = hiltViewModel(),
 ) {
     val onBoardingUIStates by onBoardingViewModel.uiStates.collectAsState()
-    Log.e("testASDFPTK123","welcome screen")
-
     OnBoardingWelcomeScreenContent(onBoardingUIStates)
 
     DisposableEffect(Unit) {
