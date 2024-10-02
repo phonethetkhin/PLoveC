@@ -2,7 +2,7 @@ package com.ptk.pnclovecounter.di
 
 import android.content.Context
 import androidx.room.Room
-import com.ptk.pnclovecounter.db.PNCDB
+import com.ptk.pnclovecounter.db.ChoDB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,16 +16,16 @@ object RoomDatabaseModule {
 
     @Singleton
     @Provides
-    fun providesCDGNewsDB(
+    fun providesChoDB(
         @ApplicationContext app: Context
     ) = Room.databaseBuilder(
         app,
-        PNCDB::class.java,
-        "cdg_news.db"
+        ChoDB::class.java,
+        "cho.db"
     ).build()
 
     @Singleton
     @Provides
-    fun providesPersonDao(db: PNCDB) = db.getPersonDao()
+    fun providesPersonDao(db: ChoDB) = db.personDao()
 
 }
