@@ -2,9 +2,18 @@
 
 package com.ptk.pnclovecounter.ui.ui_resource.composable
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,22 +33,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.core.app.ActivityCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
-import com.google.accompanist.permissions.PermissionState
 import com.ptk.pnclovecounter.R
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
+import com.ptk.pnclovecounter.util.requestPermission
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
 
 @Composable
 fun RowScope.ProfileCard(
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
-    galleryLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
     profilePhoto: String = "",
     nickName: String,
     zodiacName: String,
@@ -47,7 +59,7 @@ fun RowScope.ProfileCard(
     age: Int,
     modifier: Modifier = Modifier
 ) {
-
+    val context = LocalContext.current
 
     Column(modifier = Modifier.weight(1F)) {
         Box(modifier = modifier.align(Alignment.CenterHorizontally)) {
@@ -76,7 +88,12 @@ fun RowScope.ProfileCard(
                     .align(Alignment.TopEnd) // Align the icon to the top end of the box
                     .clickable {
                         Log.e("testASDFPTK123", "Clicked")
-                        openGallery(permissionsState = permissionsState, galleryLauncher)
+                        openGallery(
+                            context = context,
+                            requestPermissionLauncher = requestPermissionLauncher,
+                            permissionsStates = permissionsState,
+                            galleryLauncher = galleryLauncher
+                        )
                     }
             )
         }
@@ -101,12 +118,71 @@ fun RowScope.ProfileCard(
 }
 
 private fun openGallery(
-    permissionsState: MultiplePermissionsState,
-    galleryLauncher: ManagedActivityResultLauncher<String, Uri?>
+    context: Context,
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
+    permissionsStates: MultiplePermissionsState,
+    galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>
 ) {
     Log.e("testASDFPTK123", "Gallery Opened")
-    Log.e("testASDFPTK123", "PermissionState ${permissionsState.allPermissionsGranted}")
+    Log.e("testASDFPTK123", "PermissionState ${permissionsStates.allPermissionsGranted}")
 
-    galleryLauncher.launch("image/*")
+    // Check if permissions are granted
+    if (permissionsStates.allPermissionsGranted) {
+        // Permissions are granted, open the gallery
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+        }
+        galleryLauncher.launch(intent)
+    } else {
+        // Request permissions
+        if (permissionsStates.shouldShowRationale) {
+            // Show rationale if necessary
+            showPermissionRationale(context, requestPermissionLauncher)
+        } else {
+            // Check if "Don't ask again" was selected
+            val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Manifest.permission.READ_MEDIA_IMAGES
+            } else {
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            }
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(context as Activity, permission)) {
+                // Show a dialog to open app settings if "Don't ask again" is selected
+                showAppSettingsDialog(context)
+            } else {
+                // Request permission
+                requestPermissionLauncher.launch(permission)
+            }
+        }
+    }
+}
 
+
+// Function to show app settings dialog
+private fun showAppSettingsDialog(context: Context) {
+    AlertDialog.Builder(context)
+        .setTitle("Permission Required")
+        .setMessage("Permission is required to access the gallery. Please enable it in the app settings.")
+        .setPositiveButton("Go to Settings") { _, _ ->
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                data = Uri.fromParts("package", context.packageName, null)
+            }
+            context.startActivity(intent)
+        }
+        .setNegativeButton("Cancel", null)
+        .show()
+}
+
+// Function to show rationale dialog
+private fun showPermissionRationale(
+    context: Context,
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>
+) {
+    AlertDialog.Builder(context)
+        .setTitle("Permission Required")
+        .setMessage("We need permission to access your gallery to select a profile photo.")
+        .setPositiveButton("Allow") { _, _ ->
+            requestPermissionLauncher.requestPermission()
+        }
+        .setNegativeButton("Cancel", null)
+        .show()
 }

@@ -1,9 +1,11 @@
-@file:OptIn(ExperimentalPermissionsApi::class)
+@file:OptIn(ExperimentalPermissionsApi::class, ExperimentalPermissionsApi::class)
 
 package com.ptk.pnclovecounter.ui.ui_resource.composable
 
+import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,8 +25,9 @@ import ir.kaaveh.sdpcompose.sdp
 
 @Composable
 fun LoveProfileSection(
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
-    galleryLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
     homeUIStates: HomeUIStates,
     modifier: Modifier = Modifier
 ) {
@@ -35,6 +38,7 @@ fun LoveProfileSection(
             .padding(vertical = 16.sdp, horizontal = 8.sdp)
     ) {
         ProfileCard(
+            requestPermissionLauncher = requestPermissionLauncher,
             permissionsState = permissionsState,
             galleryLauncher = galleryLauncher,
             gender = "Male",
@@ -52,6 +56,7 @@ fun LoveProfileSection(
                 .padding(bottom = 50.sdp)
         )
         ProfileCard(
+            requestPermissionLauncher = requestPermissionLauncher,
             permissionsState = permissionsState,
             galleryLauncher = galleryLauncher,
             gender = "Female",

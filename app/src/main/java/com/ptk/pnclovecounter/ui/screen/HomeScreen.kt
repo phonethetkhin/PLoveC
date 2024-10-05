@@ -3,10 +3,14 @@
 package com.ptk.pnclovecounter.ui.screen
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,11 +25,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
-import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveDateSection
 import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveProfileSection
 import com.ptk.pnclovecounter.ui.ui_state.HomeUIStates
+import com.ptk.pnclovecounter.util.requestPermission
 import com.ptk.pnclovecounter.viewmodel.HomeViewModel
 
 @Composable
@@ -35,25 +39,35 @@ fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     val galleryLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            Log.e("testASDFPTK", "PROFILECARD URI: $uri")
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val selectedImageUri: Uri? = result.data?.data
+                Log.e("testASDFPTK", "PROFILECARD URI: $selectedImageUri")
+                // Handle the selected image URI here (e.g., store it or display it)
+            }
         }
     val permissionStates =
-        rememberMultiplePermissionsState(listOf(Manifest.permission.READ_EXTERNAL_STORAGE))
+        rememberMultiplePermissionsState(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                listOf(Manifest.permission.READ_MEDIA_IMAGES) // For Android 13+
+            } else {
+                listOf(Manifest.permission.READ_EXTERNAL_STORAGE) // For Android 12 and below
+            }
+        )
 
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            // Permission granted
+            Log.e("testASDFPTK", "Permission Granted")
         } else {
-            // Handle permission denial
+            Log.e("testASDFPTK", "Permission Denied")
         }
     }
 
     LaunchedEffect(permissionStates) {
         if (!permissionStates.allPermissionsGranted) {
-            requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissionLauncher.requestPermission()
         }
     }
 
@@ -64,6 +78,7 @@ fun HomeScreen(
     val homeUIStates: HomeUIStates by homeViewModel.uiStates.collectAsState()
 
     HomeScreenContent(
+        requestPermissionLauncher = requestPermissionLauncher,
         permissionsState = permissionStates,
         galleryLauncher = galleryLauncher,
         homeUIStates = homeUIStates
@@ -73,8 +88,9 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreenContent(
+    requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
-    galleryLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
     modifier: Modifier = Modifier,
     homeUIStates: HomeUIStates,
 ) {
@@ -82,6 +98,7 @@ fun HomeScreenContent(
         Column {
             LoveDateSection(homeUIStates.days)
             LoveProfileSection(
+                requestPermissionLauncher = requestPermissionLauncher,
                 permissionsState = permissionsState,
                 galleryLauncher = galleryLauncher,
                 homeUIStates = homeUIStates
