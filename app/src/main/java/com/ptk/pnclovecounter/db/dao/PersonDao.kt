@@ -15,4 +15,7 @@ interface PersonDao {
     @Query("SELECT * FROM tbl_person")
     suspend fun getAllPersons(): List<PersonEntity>
 
+    @Query("SELECT * FROM tbl_person WHERE person_id=:id")
+    suspend fun getPerson(id: Int): PersonEntity
+
 }

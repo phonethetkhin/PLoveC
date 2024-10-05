@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MemoryCalculator" parent="android:Theme.Material.NoActionBar" />
+
+    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen">
+
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/cho_logo_round</item>
+
+        <item name="android:windowSplashScreenBackground">@color/purple40</item>
+
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/black</item>
+
+        <item name="android:windowSplashScreenAnimationDuration">200</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.MemoryCalculator</item>
+
+    </style>
+
+
+</resources>

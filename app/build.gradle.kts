@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ptk.pnclovecounter"
-        minSdk = 31
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -118,6 +118,10 @@ dependencies {
 
     //datastore
     implementation(libs.androidx.datastore.preferences)
+
+    //permission
+    implementation(libs.accompanist.permissions)
+
 
 
 

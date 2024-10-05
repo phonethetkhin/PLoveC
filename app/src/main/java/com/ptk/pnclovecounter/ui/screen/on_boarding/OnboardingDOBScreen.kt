@@ -102,7 +102,7 @@ fun OnboardingDOBScreenContent(
             CustomAnimatedVisibility(isVisible = onBoardingUIStates.isShowDobs) {
                 Row(modifier = modifier.fillMaxWidth()) {
                     CustomDatePicker(
-                        onBoardingUIStates.firstDOB,
+                        selectedDob = onBoardingUIStates.firstDOB,
                         modifier = modifier.weight(1F),
                         isError = onBoardingUIStates.isFDOBWrong,
                         errorMessage = "Incorrect Date of Birth\n(It's 29/06/1997)",
@@ -111,7 +111,7 @@ fun OnboardingDOBScreenContent(
                     }
                     Spacer(modifier = modifier.width(8.sdp))
                     CustomDatePicker(
-                        onBoardingUIStates.secondDOB, modifier = modifier.weight(1F),
+                        selectedDob = onBoardingUIStates.secondDOB, modifier = modifier.weight(1F),
                         isError = onBoardingUIStates.isSDOBWrong,
                         errorMessage = "Incorrect Date of Birth\n(It's 15/04/1996)",
                     ) {

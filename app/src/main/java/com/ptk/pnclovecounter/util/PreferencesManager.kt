@@ -34,7 +34,7 @@ class PreferencesManager @Inject constructor(
 
     val anniDateFlow: Flow<String> = dataStore.data
         .map { preferences ->
-            preferences[PreferencesKeys.ANNI_DATE] ?: "6/5/2024"
+            preferences[PreferencesKeys.ANNI_DATE] ?: "06/05/2024"
         }
 
     suspend fun setAnniDate(anniDate: String) {

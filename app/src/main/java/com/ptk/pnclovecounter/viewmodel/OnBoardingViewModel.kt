@@ -192,13 +192,13 @@ class OnBoardingViewModel @Inject constructor(
                             Toast.LENGTH_SHORT
                         )
                             .show()
-                    } else if (_uiStates.value.firstDOB != "29/6/1997" || _uiStates.value.secondDOB != "15/4/1996") {
+                    } else if (_uiStates.value.firstDOB != "29/06/1997" || _uiStates.value.secondDOB != "15/04/1996") {
                         Toast.makeText(context, "Wrong Dates of Birth", Toast.LENGTH_SHORT)
                             .show()
                         _uiStates.update {
                             it.copy(
-                                isFDOBWrong = _uiStates.value.firstDOB != "29/6/1997",
-                                isSDOBWrong = _uiStates.value.secondDOB != "15/4/1996"
+                                isFDOBWrong = _uiStates.value.firstDOB != "29/06/1997",
+                                isSDOBWrong = _uiStates.value.secondDOB != "15/04/1996"
                             )
                         }
                     } else {
@@ -214,10 +214,10 @@ class OnBoardingViewModel @Inject constructor(
                             Toast.LENGTH_SHORT
                         )
                             .show()
-                    } else if (_uiStates.value.anniversaryDate != "6/5/2024") {
+                    } else if (_uiStates.value.anniversaryDate != "06/05/2024") {
                         Toast.makeText(context, "Wrong Anniversary", Toast.LENGTH_SHORT)
                             .show()
-                        _uiStates.update { it.copy(isAnniWrong = _uiStates.value.anniversaryDate != "6/5/2024") }
+                        _uiStates.update { it.copy(isAnniWrong = _uiStates.value.anniversaryDate != "06/05/2024") }
                     } else {
                         completeOnboarding(navController)
                     }

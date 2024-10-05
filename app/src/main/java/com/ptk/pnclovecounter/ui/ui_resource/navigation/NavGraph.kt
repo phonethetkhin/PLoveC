@@ -11,6 +11,7 @@ import com.ptk.pnclovecounter.ui.screen.HomeScreen
 import com.ptk.pnclovecounter.ui.screen.SplashScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding.OnboardingScreen
 import com.ptk.pnclovecounter.ui.screen.on_boarding_enquiry.OnboardingEnquiryScreen
+import ir.kaaveh.sdpcompose.sdp
 
 
 @Composable
@@ -19,7 +20,7 @@ fun NavGraph(
     navController: NavHostController,
 ) {
     NavHost(
-        modifier = Modifier.padding(bottom = scaffoldPaddingValue.dp),
+        modifier = Modifier.padding(bottom = scaffoldPaddingValue.dp + 16.sdp),
         navController = navController,
         startDestination = Routes.SplashScreen.route
     ) {

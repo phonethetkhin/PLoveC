@@ -1,5 +1,6 @@
 package com.ptk.pnclovecounter.ui.ui_resource.composable
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.widget.DatePicker
 import androidx.compose.foundation.clickable
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -23,8 +23,10 @@ import ir.kaaveh.sdpcompose.ssp
 import java.util.Calendar
 
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun RowScope.CustomDatePicker(
+    label: String = "Date of Birth",
     selectedDob: String,
     isError: Boolean = false,
     errorMessage: String = "",
@@ -42,7 +44,8 @@ fun RowScope.CustomDatePicker(
     val datePickerDialog = DatePickerDialog(
         LocalContext.current,
         { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-            changeDob.invoke("$dayOfMonth/${month + 1}/$year")
+            val formattedDate = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
+            changeDob.invoke(formattedDate)
         },
         year,
         month,
@@ -53,7 +56,7 @@ fun RowScope.CustomDatePicker(
         value = selectedDob,
         modifier = modifier,
         onValueChange = {},
-        label = { Text("Date of Birth") },
+        label = { Text(label) },
         shape = RoundedCornerShape(16.sdp),
         maxLines = 1,
         singleLine = true,
@@ -73,12 +76,12 @@ fun RowScope.CustomDatePicker(
             focusedContainerColor = Color.White
         ),
         trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.DateRange,
-                    contentDescription = "DateIcon",
-                    modifier = modifier.clickable {
-                        datePickerDialog.show()
-                    })
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "DateIcon",
+                modifier = modifier.clickable {
+                    datePickerDialog.show()
+                })
         }
     )
 }

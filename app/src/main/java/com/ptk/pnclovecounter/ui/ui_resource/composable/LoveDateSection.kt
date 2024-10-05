@@ -14,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.ptk.pnclovecounter.ui.ui_resource.theme.LemonFontFamily
+import com.ptk.pnclovecounter.ui.ui_resource.theme.Purple40
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
 @Composable
-fun ColumnScope.LoveDateSection(modifier: Modifier = Modifier) {
+fun ColumnScope.LoveDateSection(inLoveDate: Long, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -42,16 +44,18 @@ fun ColumnScope.LoveDateSection(modifier: Modifier = Modifier) {
                 color = Color.Black,
                 fontSize = 30.ssp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = LemonFontFamily,
                 textAlign = TextAlign.Center,
-                modifier = modifier.padding(bottom = 100.sdp)
+                modifier = modifier.padding(bottom = 130.sdp)
             )
             Text(
-                text = "36500 days",
+                text = "$inLoveDate\n\ndays",
                 color = Color.Black,
                 fontSize = 30.ssp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = LemonFontFamily,
                 textAlign = TextAlign.Center,
-                modifier = modifier.padding(top = 32.sdp)
+                modifier = modifier.padding(top = 60.sdp)
             )
 
 

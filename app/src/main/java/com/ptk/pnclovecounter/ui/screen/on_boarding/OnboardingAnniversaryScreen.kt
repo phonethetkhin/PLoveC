@@ -74,7 +74,8 @@ fun OnboardingAnniversaryScreenContent(
             CustomAnimatedVisibility(isVisible = onBoardingUIStates.isShowAnniDate) {
                 Row(modifier = modifier.fillMaxWidth()) {
                     CustomDatePicker(
-                        onBoardingUIStates.anniversaryDate,
+                        label = "Anniversary Date",
+                        selectedDob= onBoardingUIStates.anniversaryDate,
                         isError = onBoardingUIStates.isAnniWrong,
                         errorMessage = "Incorrect Anniversary Date\n(It's 6/5/2024)",
                         modifier = modifier.weight(1F)
