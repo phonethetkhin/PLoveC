@@ -40,10 +40,10 @@ fun AgeCard(age: Int, gender: String, modifier: Modifier = Modifier) {
                 },
                 contentDescription = null,
                 tint = Color.White,
-                modifier = Modifier.size(20.sdp)
+                modifier = Modifier.size(18.sdp)
             )
             Spacer(modifier = modifier.width(4.sdp))
-            Text("$age", color = Color.White, fontSize = 16.ssp, fontFamily = LemonFontFamily, fontWeight = FontWeight.Bold)
+            Text("$age", color = Color.White, fontSize = 14.ssp, fontFamily = LemonFontFamily, fontWeight = FontWeight.Bold)
         }
     }
 }

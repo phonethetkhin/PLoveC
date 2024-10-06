@@ -19,9 +19,9 @@ interface PersonDao {
     suspend fun getPerson(id: Int): PersonEntity
 
     @Query("UPDATE tbl_person SET nick_name=:nickName WHERE person_id =:personId")
-    suspend fun updateNickName(personId : Int, nickName:String)
+    suspend fun updateNickName(personId: Int, nickName: String): Int
 
     @Query("UPDATE tbl_person SET profile_picture=:profilePicture WHERE person_id =:personId")
-    suspend fun updateProfilePicture(personId : Int, profilePicture:String)
+    suspend fun updateProfilePicture(personId: Int, profilePicture: String)
 
 }

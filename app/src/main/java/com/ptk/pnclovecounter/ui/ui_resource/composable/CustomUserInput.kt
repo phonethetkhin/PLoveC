@@ -3,6 +3,7 @@
 package com.ptk.pnclovecounter.ui.ui_resource.composable
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -19,9 +20,8 @@ import com.ptk.pnclovecounter.util.Constants
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
-
 @Composable
-fun RowScope.CustomUserInput(
+fun BaseCustomUserInput(
     label: String,
     value: String,
     isError: Boolean = false,
@@ -29,13 +29,11 @@ fun RowScope.CustomUserInput(
     onValChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
-
     TextField(
         value = value,
         onValueChange = { onValChange.invoke(it) },
         label = { Text(label) },
-        modifier = modifier.weight(1F),
+        modifier = modifier,
         shape = RoundedCornerShape(16.sdp),
         maxLines = 1,
         singleLine = true,
@@ -55,5 +53,43 @@ fun RowScope.CustomUserInput(
             unfocusedContainerColor = Color.White,
             focusedContainerColor = Color.White
         )
+    )
+}
+
+@Composable
+fun RowScope.CustomUserInput(
+    label: String,
+    value: String,
+    isError: Boolean = false,
+    errorMessage: String = "",
+    onValChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    BaseCustomUserInput(
+        label = label,
+        value = value,
+        isError = isError,
+        errorMessage = errorMessage,
+        onValChange = onValChange,
+        modifier = modifier.weight(1F),
+    )
+}
+
+@Composable
+fun CustomUserInput(
+    label: String,
+    value: String,
+    isError: Boolean = false,
+    errorMessage: String = "",
+    onValChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    BaseCustomUserInput(
+        label = label,
+        value = value,
+        isError = isError,
+        errorMessage = errorMessage,
+        onValChange = onValChange,
+        modifier = modifier.fillMaxWidth(),
     )
 }

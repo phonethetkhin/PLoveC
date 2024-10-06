@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import coil.compose.rememberAsyncImagePainter
@@ -83,9 +84,13 @@ fun RowScope.ProfileCard(
                 contentScale = ContentScale.Crop, // This will crop the image to fit in the circle
                 contentDescription = "profile photo",
                 modifier = modifier
-                    .size(110.sdp) // Set size first
+                    .size(100.sdp) // Set size first
                     .clip(CircleShape) // Then clip to circle
-                    .border(2.dp, Color.White, CircleShape) // Optional: Add a border for better visibility
+                    .border(
+                        2.dp,
+                        Color.White,
+                        CircleShape
+                    ) // Optional: Add a border for better visibility
             )
 
             // Camera Icon positioned at the top right
@@ -113,11 +118,18 @@ fun RowScope.ProfileCard(
         Text(
             text = nickName,
             color = Color.White,
-            fontSize = 23.ssp,
+            fontSize = 20.ssp,
             fontFamily = KavoonFontFamily,
             fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
-            modifier = modifier.align(Alignment.CenterHorizontally)
+            modifier = modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    homeViewModel.setPersonId(personId)
+                    homeViewModel.toggleIsShowEditNickNameDialog(true)
+                }
         )
         Spacer(modifier = modifier.height(4.sdp))
 

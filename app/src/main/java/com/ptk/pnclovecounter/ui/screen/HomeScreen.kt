@@ -27,11 +27,14 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.ptk.pnclovecounter.ui.ui_resource.composable.EditNickNameDialog
+import com.ptk.pnclovecounter.ui.ui_resource.composable.LoadingDialog
 import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveDateSection
 import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveProfileSection
 import com.ptk.pnclovecounter.ui.ui_state.HomeUIStates
 import com.ptk.pnclovecounter.util.requestPermission
 import com.ptk.pnclovecounter.viewmodel.HomeViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
@@ -40,6 +43,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
+    val homeUIStates: HomeUIStates by homeViewModel.uiStates.collectAsState()
     val scope = rememberCoroutineScope()
     val galleryLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -82,9 +86,9 @@ fun HomeScreen(
         homeViewModel.getPersons()
         homeViewModel.getAnniDate()
     }
-    val homeUIStates: HomeUIStates by homeViewModel.uiStates.collectAsState()
 
     HomeScreenContent(
+        scope = scope,
         homeViewModel = homeViewModel,
         requestPermissionLauncher = requestPermissionLauncher,
         permissionsState = permissionStates,
@@ -96,6 +100,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreenContent(
+    scope: CoroutineScope,
     homeViewModel: HomeViewModel,
     requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
@@ -103,6 +108,23 @@ fun HomeScreenContent(
     modifier: Modifier = Modifier,
     homeUIStates: HomeUIStates,
 ) {
+    LoadingDialog(showDialog = homeUIStates.isLoading)
+
+    EditNickNameDialog(
+        showDialog = homeUIStates.isShowEditNickNameDialog,
+        textValue = if (homeUIStates.personId == 1) homeUIStates.person1NickName else homeUIStates.person2NickName,
+        onDismiss = {
+            homeViewModel.toggleIsShowEditNickNameDialog(false)
+        },
+        onValueChange = { homeViewModel.toggleNickName(it) },
+        onConfirm = {
+            scope.launch {
+                homeViewModel.updateNickName()
+                homeViewModel.toggleIsShowEditNickNameDialog(false)
+            }
+        }
+    )
+
     Surface(color = MaterialTheme.colorScheme.onSurface, modifier = modifier.fillMaxSize()) {
         Column {
             LoveDateSection(homeUIStates.days)

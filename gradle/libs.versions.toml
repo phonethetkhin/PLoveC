@@ -20,9 +20,9 @@ composeBom = "2024.09.02"
 ktor = "2.2.3"
 hilt = "2.51.1"
 logbackClassic = "1.4.6"
-lottie = "6.1.0"
 lifecycle = "2.8.6"
 kspVer = "2.0.0-1.0.21"
+lottieComposeVersion = "6.0.0"
 navVersion = "2.8.1"
 roomRuntime = "2.6.1"
 sdpCompose = "1.1.0"
@@ -33,6 +33,7 @@ googleFirebaseStorage = "21.0.1"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -67,7 +68,6 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-compiler-ksp = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logbackClassic" }
-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 sdp-compose = { module = "com.github.Kaaveh:sdp-compose", version.ref = "sdpCompose" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }

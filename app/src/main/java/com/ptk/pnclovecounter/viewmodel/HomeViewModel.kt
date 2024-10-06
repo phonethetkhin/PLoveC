@@ -35,6 +35,26 @@ class HomeViewModel @Inject constructor(
         _uiStates.update { it.copy(personId = personId) }
     }
 
+    fun toggleIsShowEditNickNameDialog(isShowEditNickNameDialog: Boolean) {
+        _uiStates.update {
+            it.copy(
+                isShowEditNickNameDialog = isShowEditNickNameDialog,
+                person1NickName = _uiStates.value.person1!!.nickName,
+                person2NickName = _uiStates.value.person2!!.nickName
+            )
+        }
+    }
+
+    fun toggleNickName(nickname: String) {
+        _uiStates.update {
+            if (_uiStates.value.personId == 1) {
+                it.copy(person1NickName = nickname)
+            } else {
+                it.copy(person2NickName = nickname)
+            }
+        }
+    }
+
     //=======================================db function=========================================//
 
     suspend fun getPersons() {
@@ -50,14 +70,22 @@ class HomeViewModel @Inject constructor(
         _uiStates.update { it.copy(days = days, period = period) }
     }
 
-   /* suspend fun updateNickName(personId: Int, nickname: String) {
-        personDao.updateNickName()
-    }*/
+    suspend fun updateNickName() {
+        val nickName =
+            if (_uiStates.value.personId == 1) _uiStates.value.person1NickName else _uiStates.value.person2NickName
+        val rowUpdated =
+            personDao.updateNickName(personId = _uiStates.value.personId, nickName = nickName)
+        if (rowUpdated > 0) {
+            context.showToast("Nickname updated successfully")
+            getPersons()
+        }
+    }
 
 
     // firebase functions
 
     fun uploadImageToFirebase(uri: Uri) {
+        _uiStates.update { it.copy(isLoading = true) }
         val personId = _uiStates.value.personId
         Log.e("testASDFPTFK123", personId.toString())
         val storageReference: StorageReference = FirebaseStorage.getInstance().reference
@@ -75,6 +103,8 @@ class HomeViewModel @Inject constructor(
                     personDao.updateProfilePicture(personId = personId, profilePicture = imageUrl)
 
                     getPersons()
+                    _uiStates.update { it.copy(isLoading = false) }
+
                 }
             }
         }.addOnFailureListener {

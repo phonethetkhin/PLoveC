@@ -18,4 +18,8 @@ data class HomeUIStates(
 
     val galleryLauncher: ActivityResultLauncher<Intent>? = null,
 
-    )
+    val isLoading: Boolean = false,
+    val person1NickName : String = "",
+    val person2NickName : String = "",
+    val isShowEditNickNameDialog: Boolean = false,
+)

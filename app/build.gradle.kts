@@ -103,7 +103,7 @@ dependencies {
     implementation(libs.coil.gif)
 
     // Lottie
-    implementation(libs.lottie)
+    implementation(libs.android.lottie.compose)
 
     //Navigation
     implementation(libs.androidx.navigation.compose)
