@@ -14,6 +14,8 @@ data class HomeUIStates(
     val period: Period? = null,
     val days: Long = 0,
 
+    val personId: Int = 1,
+
     val galleryLauncher: ActivityResultLauncher<Intent>? = null,
 
     )

@@ -21,5 +21,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "P@C"
+rootProject.name = "CHO"
 include(":app")

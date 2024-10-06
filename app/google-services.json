@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "941419195105",
+    "project_id": "chocho-a1569",
+    "storage_bucket": "chocho-a1569.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941419195105:android:f58546e2ac8a1c4e0ce5a0",
+        "android_client_info": {
+          "package_name": "com.ptk.pnclovecounter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLvr_GxZc6YP_OgzLYBqo90iu0Lh_5yug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

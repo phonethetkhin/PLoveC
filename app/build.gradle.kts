@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.gms.google.services)
 
 }
 val navVersion = "2.7.0"
@@ -13,11 +14,11 @@ android {
     namespace = "com.ptk.pnclovecounter"
     compileSdk = 34
 
-        packagingOptions {
-            resources {
-                excludes += "META-INF/INDEX.LIST"
-            }
+    packagingOptions {
+        resources {
+            excludes += "META-INF/INDEX.LIST"
         }
+    }
 
     defaultConfig {
         applicationId = "com.ptk.pnclovecounter"
@@ -75,6 +76,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -85,8 +87,6 @@ dependencies {
 
     // Viewmodel
     implementation(libs.lifecycle.viewmodel.ktx)
-
-
 
 
     //Scalable Size Unit sdp
@@ -121,8 +121,6 @@ dependencies {
 
     //permission
     implementation(libs.accompanist.permissions)
-
-
 
 
 }

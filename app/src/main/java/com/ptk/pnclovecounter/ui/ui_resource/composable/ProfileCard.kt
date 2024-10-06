@@ -11,11 +11,11 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,22 +33,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
+import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.ptk.pnclovecounter.R
 import com.ptk.pnclovecounter.ui.ui_resource.theme.KavoonFontFamily
 import com.ptk.pnclovecounter.util.requestPermission
+import com.ptk.pnclovecounter.viewmodel.HomeViewModel
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
 
 @Composable
 fun RowScope.ProfileCard(
+    homeViewModel: HomeViewModel,
+    personId: Int,
     requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
     galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
@@ -65,16 +71,21 @@ fun RowScope.ProfileCard(
         Box(modifier = modifier.align(Alignment.CenterHorizontally)) {
             // Profile Picture
             Image(
-                painter = if (gender == "Male") {
-                    painterResource(id = R.drawable.boyavatar)
+                painter = if (profilePhoto.isNotEmpty()) {
+                    rememberAsyncImagePainter(model = profilePhoto) // Load from Firebase URL
                 } else {
-                    painterResource(id = R.drawable.girl_icon)
+                    if (gender == "Male") {
+                        painterResource(id = R.drawable.boyavatar)
+                    } else {
+                        painterResource(id = R.drawable.girl_icon)
+                    }
                 },
+                contentScale = ContentScale.Crop, // This will crop the image to fit in the circle
                 contentDescription = "profile photo",
                 modifier = modifier
-                    .clip(CircleShape)
-                    .size(110.sdp)
-
+                    .size(110.sdp) // Set size first
+                    .clip(CircleShape) // Then clip to circle
+                    .border(2.dp, Color.White, CircleShape) // Optional: Add a border for better visibility
             )
 
             // Camera Icon positioned at the top right
@@ -87,8 +98,9 @@ fun RowScope.ProfileCard(
                     .padding(4.sdp) // Padding to create a little space inside the circular background
                     .align(Alignment.TopEnd) // Align the icon to the top end of the box
                     .clickable {
-                        Log.e("testASDFPTK123", "Clicked")
                         openGallery(
+                            homeViewModel = homeViewModel,
+                            personId = personId,
                             context = context,
                             requestPermissionLauncher = requestPermissionLauncher,
                             permissionsStates = permissionsState,
@@ -118,19 +130,19 @@ fun RowScope.ProfileCard(
 }
 
 private fun openGallery(
+    homeViewModel: HomeViewModel,
+    personId: Int,
     context: Context,
     requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsStates: MultiplePermissionsState,
     galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>
 ) {
-    Log.e("testASDFPTK123", "Gallery Opened")
-    Log.e("testASDFPTK123", "PermissionState ${permissionsStates.allPermissionsGranted}")
-
     // Check if permissions are granted
     if (permissionsStates.allPermissionsGranted) {
         // Permissions are granted, open the gallery
         val intent = Intent(Intent.ACTION_PICK).apply {
             setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+            homeViewModel.setPersonId(personId)
         }
         galleryLauncher.launch(intent)
     } else {
@@ -145,7 +157,11 @@ private fun openGallery(
             } else {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             }
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(context as Activity, permission)) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(
+                    context as Activity,
+                    permission
+                )
+            ) {
                 // Show a dialog to open app settings if "Don't ask again" is selected
                 showAppSettingsDialog(context)
             } else {

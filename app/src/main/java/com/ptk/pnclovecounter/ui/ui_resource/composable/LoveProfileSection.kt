@@ -3,7 +3,6 @@
 package com.ptk.pnclovecounter.ui.ui_resource.composable
 
 import android.content.Intent
-import android.net.Uri
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
 import androidx.compose.foundation.layout.Arrangement
@@ -17,14 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
-import com.google.accompanist.permissions.PermissionState
 import com.ptk.pnclovecounter.R
 import com.ptk.pnclovecounter.ui.ui_resource.theme.DarkPink
 import com.ptk.pnclovecounter.ui.ui_state.HomeUIStates
+import com.ptk.pnclovecounter.viewmodel.HomeViewModel
 import ir.kaaveh.sdpcompose.sdp
 
 @Composable
 fun LoveProfileSection(
+    homeViewModel: HomeViewModel,
     requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
     galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
@@ -38,6 +38,8 @@ fun LoveProfileSection(
             .padding(vertical = 16.sdp, horizontal = 8.sdp)
     ) {
         ProfileCard(
+            homeViewModel = homeViewModel,
+            personId = 1,
             requestPermissionLauncher = requestPermissionLauncher,
             permissionsState = permissionsState,
             galleryLauncher = galleryLauncher,
@@ -56,6 +58,8 @@ fun LoveProfileSection(
                 .padding(bottom = 50.sdp)
         )
         ProfileCard(
+            homeViewModel = homeViewModel,
+            personId = 2,
             requestPermissionLauncher = requestPermissionLauncher,
             permissionsState = permissionsState,
             galleryLauncher = galleryLauncher,

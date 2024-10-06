@@ -4,6 +4,7 @@ agp = "8.5.2"
 coilCompose = "2.6.0"
 coreSplashscreen = "1.0.0"
 datastorePreferences = "1.1.1"
+firebaseStorageVersion = "20.0.1"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -26,6 +27,9 @@ navVersion = "2.8.1"
 roomRuntime = "2.6.1"
 sdpCompose = "1.1.0"
 navigationRuntimeKtx = "2.8.1"
+googleGmsGoogleServices = "4.4.2"
+firebaseStorage = "21.0.1"
+googleFirebaseStorage = "21.0.1"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -67,6 +71,7 @@ lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie"
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 sdp-compose = { module = "com.github.Kaaveh:sdp-compose", version.ref = "sdpCompose" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "googleFirebaseStorage" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -75,6 +80,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspVer"}
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
 
 

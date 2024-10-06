@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -31,6 +32,7 @@ import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveProfileSection
 import com.ptk.pnclovecounter.ui.ui_state.HomeUIStates
 import com.ptk.pnclovecounter.util.requestPermission
 import com.ptk.pnclovecounter.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -38,12 +40,17 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
+    val scope = rememberCoroutineScope()
     val galleryLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedImageUri: Uri? = result.data?.data
-                Log.e("testASDFPTK", "PROFILECARD URI: $selectedImageUri")
-                // Handle the selected image URI here (e.g., store it or display it)
+                // Upload the selected image
+                scope.launch {
+                    selectedImageUri?.let {
+                        homeViewModel.uploadImageToFirebase(uri = it)
+                    }
+                }
             }
         }
     val permissionStates =
@@ -78,6 +85,7 @@ fun HomeScreen(
     val homeUIStates: HomeUIStates by homeViewModel.uiStates.collectAsState()
 
     HomeScreenContent(
+        homeViewModel = homeViewModel,
         requestPermissionLauncher = requestPermissionLauncher,
         permissionsState = permissionStates,
         galleryLauncher = galleryLauncher,
@@ -88,6 +96,7 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreenContent(
+    homeViewModel: HomeViewModel,
     requestPermissionLauncher: ManagedActivityResultLauncher<String, Boolean>,
     permissionsState: MultiplePermissionsState,
     galleryLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
@@ -98,6 +107,7 @@ fun HomeScreenContent(
         Column {
             LoveDateSection(homeUIStates.days)
             LoveProfileSection(
+                homeViewModel = homeViewModel,
                 requestPermissionLauncher = requestPermissionLauncher,
                 permissionsState = permissionsState,
                 galleryLauncher = galleryLauncher,
