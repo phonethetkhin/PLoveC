@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -63,11 +65,23 @@ class HomeViewModel @Inject constructor(
     }
 
     suspend fun getAnniDate() {
-        val anniDate = preferencesManager.anniDateFlow.first()
-        val period = getAnniDate(anniDate)
-        val days = getAnniDateDayOnly(anniDate)
+        val anniDateStr = preferencesManager.anniDateFlow.first()
+        val period = getAnniDate(anniDateStr)
+        val days = getAnniDateDayOnly(anniDateStr)
 
-        _uiStates.update { it.copy(days = days, period = period) }
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val anniDate = LocalDate.parse(anniDateStr, formatter)
+        val currentDate = LocalDate.now()
+
+
+        _uiStates.update {
+            it.copy(
+                days = days,
+                period = period,
+                startDate = anniDate,
+                endDate = currentDate
+            )
+        }
     }
 
     suspend fun updateNickName() {

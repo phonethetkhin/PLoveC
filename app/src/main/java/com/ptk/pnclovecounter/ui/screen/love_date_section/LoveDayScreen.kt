@@ -1,8 +1,7 @@
-package com.ptk.pnclovecounter.ui.ui_resource.composable
+package com.ptk.pnclovecounter.ui.screen.love_date_section
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,18 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.ptk.pnclovecounter.ui.ui_resource.composable.GifImage
 import com.ptk.pnclovecounter.ui.ui_resource.theme.LemonFontFamily
-import com.ptk.pnclovecounter.ui.ui_resource.theme.Purple40
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
 @Composable
-fun ColumnScope.LoveDateSection(inLoveDate: Long, modifier: Modifier = Modifier) {
+fun LoveDayScreen(inLoveDays: Long, modifier: Modifier = Modifier) {
+    LoveDayScreenContent(inLoveDays)
+}
+
+@Composable
+fun LoveDayScreenContent(inLoveDays: Long, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
-            .weight(1F),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = modifier.height(32.sdp))
         Box(
@@ -49,7 +51,7 @@ fun ColumnScope.LoveDateSection(inLoveDate: Long, modifier: Modifier = Modifier)
                 modifier = modifier.padding(bottom = 130.sdp)
             )
             Text(
-                text = "$inLoveDate\n\ndays",
+                text = "$inLoveDays\n\ndays",
                 color = Color.Black,
                 fontSize = 30.ssp,
                 fontWeight = FontWeight.Bold,
@@ -61,5 +63,4 @@ fun ColumnScope.LoveDateSection(inLoveDate: Long, modifier: Modifier = Modifier)
 
         }
     }
-
 }

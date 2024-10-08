@@ -27,9 +27,9 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.ptk.pnclovecounter.ui.screen.love_date_section.LoveDateSection
 import com.ptk.pnclovecounter.ui.ui_resource.composable.EditNickNameDialog
 import com.ptk.pnclovecounter.ui.ui_resource.composable.LoadingDialog
-import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveDateSection
 import com.ptk.pnclovecounter.ui.ui_resource.composable.LoveProfileSection
 import com.ptk.pnclovecounter.ui.ui_state.HomeUIStates
 import com.ptk.pnclovecounter.util.requestPermission
@@ -127,7 +127,7 @@ fun HomeScreenContent(
 
     Surface(color = MaterialTheme.colorScheme.onSurface, modifier = modifier.fillMaxSize()) {
         Column {
-            LoveDateSection(homeUIStates.days)
+            LoveDateSection()
             LoveProfileSection(
                 homeViewModel = homeViewModel,
                 requestPermissionLauncher = requestPermissionLauncher,

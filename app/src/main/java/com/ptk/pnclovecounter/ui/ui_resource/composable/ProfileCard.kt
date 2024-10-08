@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.result.ActivityResult
@@ -73,7 +72,10 @@ fun RowScope.ProfileCard(
             // Profile Picture
             Image(
                 painter = if (profilePhoto.isNotEmpty()) {
-                    rememberAsyncImagePainter(model = profilePhoto) // Load from Firebase URL
+                    rememberAsyncImagePainter(
+                        model = profilePhoto,
+                        placeholder = painterResource(id = R.drawable.placeholder)
+                    ) // Load from Firebase URL
                 } else {
                     if (gender == "Male") {
                         painterResource(id = R.drawable.boyavatar)
@@ -152,11 +154,12 @@ private fun openGallery(
     // Check if permissions are granted
     if (permissionsStates.allPermissionsGranted) {
         // Permissions are granted, open the gallery
-        val intent = Intent(Intent.ACTION_PICK).apply {
-            setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-            homeViewModel.setPersonId(personId)
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false) // Optional: Allow multiple image selection
         }
-        galleryLauncher.launch(intent)
+        homeViewModel.setPersonId(personId)
+        galleryLauncher.launch(Intent.createChooser(intent, "Select Picture"))
     } else {
         // Request permissions
         if (permissionsStates.shouldShowRationale) {
